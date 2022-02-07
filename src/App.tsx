@@ -1,19 +1,28 @@
 import React from 'react';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client';
 import ConfigurationVariables from './utils/configuration';
+import TestPage from './pages/test-page';
 
 // Connect Apollo Client to the app.
 const client = new ApolloClient({
-  uri: ConfigurationVariables.GRAPHQL_ENDPOINT,
+  link: new HttpLink({
+    uri: ConfigurationVariables.GRAPHQL_ENDPOINT,
+    headers: {
+      'x-hasura-admin-secret': ConfigurationVariables.X_HASURA_ADMIN_SECRET,
+    },
+  }),
   cache: new InMemoryCache(),
 });
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <>
-        <p>Test page</p>
-      </>
+      <TestPage />
     </ApolloProvider>
   );
 };
