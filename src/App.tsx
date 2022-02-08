@@ -6,7 +6,7 @@ import {
   InMemoryCache,
 } from '@apollo/client';
 import ConfigurationVariables from './utils/configuration';
-import TestPage from './pages/test-page';
+import Router from './router/router';
 
 // Connect Apollo Client to the app.
 const client = new ApolloClient({
@@ -22,7 +22,7 @@ const client = new ApolloClient({
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <TestPage />
+      <Router />
     </ApolloProvider>
   );
 };
